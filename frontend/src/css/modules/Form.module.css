@@ -1,0 +1,25 @@
+.formDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  /* margin-top: 4rem; */
+}
+
+.layer {
+  min-width: 40rem;
+  box-shadow: -2px 5px 12px -10px #000000, 2px -3px 10px -10px #000000;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.layer h1 {
+  font-size: 3rem;
+  letter-spacing: 0.1rem;
+  margin: 1rem 0;
+}
