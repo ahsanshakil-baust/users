@@ -25,11 +25,16 @@ mongoose
 const app = express();
 
 // set static folder
-app.use(express.static(path.join(__dirname, "public")));
+// app.use(express.static(path.join(__dirname, "public")));
 
 app.use(cookieParser(environment.cookie));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// step heroku
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "frontend/build")));
+}
 
 // Routes
 
@@ -44,11 +49,6 @@ app.use(notFoundHandler);
 
 // errorHandler
 app.use(errorHandler);
-
-// step heroku
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("frontend/build"));
-}
 
 // connection log
 app.listen(environment.port || 5000, () => {
