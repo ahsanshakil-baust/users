@@ -33,6 +33,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
+// user
+app.use("/user", userRouter);
+
+//admin
+app.use("/admin", adminRouter);
+
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
     // Set static folder
@@ -46,12 +52,6 @@ if (process.env.NODE_ENV === "production") {
         res.send("Api running");
     });
 }
-
-// user
-app.use("/user", userRouter);
-
-//admin
-app.use("/admin", adminRouter);
 
 // notFoundHandler
 app.use(notFoundHandler);
