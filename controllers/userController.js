@@ -3,12 +3,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 
 // internal imports
 const environment = require("../helpers/environment");
 const { cloudinary } = require("../middlewares/user/cloudinaryUpload");
 const User = require("../model/User");
+const { sendMail } = require("../utilities/sendMail");
 
 // Register a user
 const addUser = async (req, res) => {
@@ -30,28 +30,19 @@ const addUser = async (req, res) => {
         });
         try {
             // create a transporter for nodemailer
-            const transporter = nodemailer.createTransport({
-                service: "gmail",
-                auth: {
-                    user: "shakilahsan46@gmail.com",
-                    pass: "16827700",
-                },
-                tls: {
-                    rejectUnauthorized: false,
-                },
-            });
+            // const transporter = nodemailer.createTransport({
+            //     service: "gmail",
+            //     auth: {
+            //         user: "shakilahsan46@gmail.com",
+            //         pass: "16827700",
+            //     },
+            //     tls: {
+            //         rejectUnauthorized: false,
+            //     },
+            // });
 
             // send verification mail to user
-            const mailOptions = {
-                from: '"Verify your email" <shakilahsan46@gmail.com>',
-                to: user.email,
-                subject: "verify your email",
-                html: `<h2>${user.username}! Thanks for registering on our site</h2> 
-        <h4> Please verify your mail to continue...</h4> <a href="http://${req.headers.host}/user/verify-email/${user.token}">verify your Email</a>`,
-            };
-
-            // sending mail
-            const result = await transporter.sendMail(mailOptions);
+            const result = await sendMail(req, user);
 
             // check if mail is sending
             if (result) {
