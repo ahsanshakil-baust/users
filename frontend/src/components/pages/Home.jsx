@@ -6,6 +6,7 @@ import EditAbleForm from "../home/EditAbleForm";
 import NonEditAbleForm from "../home/NonEditableForm";
 import { passChangeValidate } from "../../validation/validation";
 import axios from "axios";
+import { useAuth } from "../../contextApi/context";
 
 // type state for both Registration and Login
 const typeChecker = {
@@ -53,6 +54,8 @@ const typeReducer = (state, action) => {
 };
 
 const Home = ({ user }) => {
+    // data's from context provider
+    const { contextdispatch } = useAuth();
     // all states
     const [previewSource, setPreviewSource] = useState();
     const [edit, setEdit] = useState(false);
@@ -216,6 +219,7 @@ const Home = ({ user }) => {
 
         if (isValid) {
             userUpdate(userObject);
+            contextdispatch({ type: "user", result: {} });
         } else {
             setErros(errors);
         }
