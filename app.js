@@ -33,6 +33,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+    // Set static folder
+    app.use(express.static(path.join(__dirname, "/frontend/build")));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+    });
+} else {
+    app.get("/", (req, res) => {
+        res.send("Api running");
+    });
+}
+
 // user
 app.use("/user", userRouter);
 
@@ -45,21 +59,11 @@ app.use(notFoundHandler);
 // errorHandler
 app.use(errorHandler);
 
-// Serve static assets if in production
-if (process.env.NODE_ENV === "production") {
-    // Set static folder
-    app.use(express.static(path.join(__dirname, "frontend/build")));
-
-    app.get("*", (req, res) => {
-        res.sendFile(
-            path.resolve(__dirname, "frontend", "build", "index.html")
-        );
-    });
-}
-
 // connection log
-app.listen(environment.port, () => {
+app.listen(process.env.PORT || 5000, () => {
     console.log(
-        `Server running on ${environment.port} on mode ${environment.envName}`
+        `Server running on ${process.env.PORT || 5000} on mode ${
+            process.env.NODE_ENV
+        }`
     );
 });
