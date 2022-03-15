@@ -31,10 +31,6 @@ app.use(cookieParser(environment.cookie));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// step heroku
-
-app.use(express.static(path.join(__dirname, "frontend/build")));
-
 // Routes
 
 // user
@@ -44,10 +40,22 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 
 // notFoundHandler
-// app.use(notFoundHandler);
+app.use(notFoundHandler);
 
 // errorHandler
 app.use(errorHandler);
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === "production") {
+    // Set static folder
+    app.use(express.static("frontend/build"));
+
+    app.get("*", (req, res) => {
+        res.sendFile(
+            path.resolve(__dirname, "frontend", "build", "index.html")
+        );
+    });
+}
 
 // connection log
 app.listen(environment.port || 5000, () => {
