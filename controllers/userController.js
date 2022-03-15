@@ -235,20 +235,20 @@ const updateUser = async (req, res) => {
 
         if (username || mobile) {
             // if other data need to be update
-            if (username && mobile) {
+            if (username !== userInfo.username && mobile !== userInfo.mobile) {
                 updateObject = {
                     username,
                     mobile,
                 };
             }
 
-            if (username) {
+            if (username !== userInfo.username) {
                 updateObject = {
                     username,
                 };
             }
 
-            if (mobile) {
+            if (mobile !== userInfo.mobile) {
                 updateObject = {
                     mobile,
                 };
