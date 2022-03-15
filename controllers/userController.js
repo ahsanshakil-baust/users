@@ -233,12 +233,26 @@ const updateUser = async (req, res) => {
             }
         }
 
-        if (username && mobile) {
+        if (username || mobile) {
             // if other data need to be update
-            updateObject = {
-                username,
-                mobile,
-            };
+            if (username && mobile) {
+                updateObject = {
+                    username,
+                    mobile,
+                };
+            }
+
+            if (username) {
+                updateObject = {
+                    username,
+                };
+            }
+
+            if (mobile) {
+                updateObject = {
+                    mobile,
+                };
+            }
             // find a user by its id and update
             const user = await User.findOneAndUpdate(
                 { _id: id },
