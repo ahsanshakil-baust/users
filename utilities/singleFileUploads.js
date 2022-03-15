@@ -52,3 +52,12 @@ const singleFileUploads = (subfolder, max_size, file_Types, error_msg) => {
 
 // exporting Module
 module.exports = singleFileUploads;
+
+// "scripts": {
+//     "test": "echo \"Error: no test specified\" && exit 1",
+//     "build": "cd frontend && npm run build",
+//     "install-client": "cd frontend && npm install",
+//     "start": "node app.js",
+//     "heroku-postbuild": "npm run install-client && npm run build",
+//     "client": "cd frontend && npm start"
+// },

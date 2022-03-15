@@ -24,11 +24,8 @@
     "devDependencies": {},
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "cd frontend && npm run build",
-        "install-client": "cd frontend && npm install",
         "start": "node app.js",
-        "heroku-postbuild": "npm run install-client && npm run build",
-        "client": "cd frontend && npm start"
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
     },
     "repository": {
         "type": "git",
