@@ -48,7 +48,7 @@ app.use(errorHandler);
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
     // Set static folder
-    app.use(express.static("frontend/build"));
+    app.use(express.static(path.join(__dirname, "frontend/build")));
 
     app.get("*", (req, res) => {
         res.sendFile(
@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // connection log
-app.listen(environment.port || 5000, () => {
+app.listen(environment.port, () => {
     console.log(
         `Server running on ${environment.port} on mode ${environment.envName}`
     );
