@@ -44,7 +44,7 @@ app.use("/user", userRouter);
 app.use("/admin", adminRouter);
 
 // notFoundHandler
-app.use(notFoundHandler);
+// app.use(notFoundHandler);
 
 // errorHandler
 app.use(errorHandler);
