@@ -127,8 +127,6 @@ const Home = ({ user }) => {
 
     // Uploading image or file api request
     const uploadImage = async (base64EncodedImage) => {
-        console.log(base64EncodedImage);
-
         try {
             await fetch("user/update", {
                 method: "POST",

@@ -9,7 +9,20 @@ const Lists = ({ list, active }) => {
             {user.isVerify ? (
                 <ul className={list}>
                     <li>
-                        <span>{user.username}</span>
+                        <NavLink
+                            to="/"
+                            className={(link) => (link.isActive ? active : "")}
+                        >
+                            Profile
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/admin"
+                            className={(link) => (link.isActive ? active : "")}
+                        >
+                            Admin Pannel
+                        </NavLink>
                     </li>
                     <li>
                         <span style={{ cursor: "pointer" }} onClick={logOut}>

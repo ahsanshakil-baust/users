@@ -3,17 +3,19 @@ const User = require("../model/User");
 
 // get all users on Admin Pannel Function
 const getAllUsers = async (req, res) => {
-    const { role } = req.user;
+    const { id } = req.user;
+
+    const userRole = await User.findById({ _id: id });
 
     // if role is member or editor then can't access all users
-    if (role === "member" || role === "editor") {
+    if (userRole.role === "member" || userRole.role === "editor") {
         res.status(200).json({
             role: "Members and Editors can not access this page",
         });
     }
 
     // checking the role is admin or superadmin
-    if (role === "admin" || role === "superadmin") {
+    if (userRole.role === "admin" || userRole.role === "superadmin") {
         try {
             // returning all users information
             const user = await User.find();
@@ -51,16 +53,18 @@ const getAllUsers = async (req, res) => {
 
 // edit an user by Admin Function
 const editUser = async (req, res) => {
-    const { role } = req.user;
+    const { id } = req.user;
+
+    const roleCheck = await User.findById({ _id: id });
     // if role is member or editor then can't access all users
-    if (role === "member" || role === "editor") {
+    if (roleCheck.role === "member" || roleCheck.role === "editor") {
         res.status(200).json({
             role: "Members and Editors can not access this page",
         });
     }
 
     // checking the role is admin or superadmin
-    if (role === "admin" || role === "superadmin") {
+    if (roleCheck.role === "admin" || roleCheck.role === "superadmin") {
         const { id } = req.params;
 
         try {
@@ -71,7 +75,7 @@ const editUser = async (req, res) => {
             // checking all users account verified by their email and also matched with their email
             if (user && user.isVerify && user.email !== req.user.email) {
                 // check the role
-                if (role === "admin") {
+                if (roleCheck.role === "admin") {
                     userRole = await User.findOneAndUpdate(
                         {
                             $and: [
@@ -93,7 +97,7 @@ const editUser = async (req, res) => {
                     );
                 }
                 // check the role
-                if (role === "superadmin") {
+                if (roleCheck.role === "superadmin") {
                     userRole = await User.findOneAndUpdate(
                         {
                             $and: [
@@ -147,24 +151,26 @@ const editUser = async (req, res) => {
 
 // delete an user by Admin Function
 const deleteUser = async (req, res) => {
-    const { role } = req.user;
+    const { id } = req.user;
+
+    const roleCheck = await User.findById({ _id: id });
 
     // if role is member or editor then can't access all users
-    if (role === "member" || role === "editor") {
+    if (roleCheck.role === "member" || roleCheck.role === "editor") {
         res.status(200).json({
             role: "Members and Editors can not access this page",
         });
     }
 
     // checking the role is admin or superadmin
-    if (role === "admin" || role === "superadmin") {
+    if (roleCheck.role === "admin" || roleCheck.role === "superadmin") {
         const { id } = req.params;
 
         try {
             let userRole;
 
             // check the role
-            if (role === "admin") {
+            if (roleCheck.role === "admin") {
                 // returning user information by user id that was n't a admin or superadmin
                 userRole = await User.findOneAndDelete({
                     $and: [
@@ -177,7 +183,7 @@ const deleteUser = async (req, res) => {
             }
 
             // check the role
-            if (role === "superadmin") {
+            if (roleCheck.role === "superadmin") {
                 userRole = await User.findOneAndDelete({
                     $and: [
                         { _id: id },

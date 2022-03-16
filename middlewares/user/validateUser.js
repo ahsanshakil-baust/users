@@ -28,12 +28,10 @@ const inputValidator = [
         }),
     check("mobile")
         .isMobilePhone("bn-BD", { strictMode: true })
-        .withMessage("Must be a BD phone Number"),
+        .withMessage("Must be a BD phone Number with +88"),
     check("password")
         .isStrongPassword()
-        .withMessage(
-            "Must be 8 characters long and should contains at least 1 uppercase, lowercase, number and symbol"
-        ),
+        .withMessage("Must be 8 char and one Capital,Smaller,Number & Symbol"),
 ];
 
 // sending Errors, if not then pass to the next process

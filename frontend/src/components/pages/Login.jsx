@@ -42,12 +42,7 @@ const typeReducer = (state, action) => {
         case "typeText":
             return {
                 ...state,
-                type: "text",
-            };
-        case "typePassword":
-            return {
-                ...state,
-                type: "password",
+                type: action.result,
             };
         default:
             return state;
@@ -146,12 +141,9 @@ const Login = () => {
 
     // handle type for changing
     const handleType = () => {
-        if (type.type === "password") {
-            typeDispatch({ type: "typeText" });
-        }
-        if (type.type === "text") {
-            typeDispatch({ type: "typePassword" });
-        }
+        type.type === "password"
+            ? typeDispatch({ type: "typeText", result: "text" })
+            : typeDispatch({ type: "typeText", result: "password" });
     };
 
     return (

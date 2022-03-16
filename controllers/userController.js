@@ -270,6 +270,7 @@ const updateUser = async (req, res) => {
 
         // if only file data need to be update or post
         if (req.body.data && req.body.data.length > 0) {
+            console.log("yes");
             // before upload or update a file need to clear the previous fle for update
             if (userInfo.cloudinaryId) {
                 await cloudinary.uploader.destroy(userInfo.cloudinaryId);
