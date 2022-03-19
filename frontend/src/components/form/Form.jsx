@@ -34,6 +34,7 @@ const Form = ({
                 errorClass={inputStyle.error}
                 errorText={errors.username}
                 fw="fa-user"
+                iconHide={inputStyle.iconHide}
             />
 
             <Input
@@ -46,6 +47,7 @@ const Form = ({
                 errorClass={inputStyle.error}
                 errorText={errors.email}
                 fw="fa-envelope"
+                iconHide={inputStyle.iconHide}
             />
 
             <Input
@@ -58,6 +60,7 @@ const Form = ({
                 errorClass={inputStyle.error}
                 errorText={errors.mobile}
                 fw="fa-phone"
+                iconHide={inputStyle.iconHide}
             />
 
             <Input
@@ -71,6 +74,7 @@ const Form = ({
                 errorText={errors.password}
                 fw="fa-lock"
                 handleType={handleType}
+                iconHide={inputStyle.iconHide}
             />
 
             <Input
@@ -84,6 +88,7 @@ const Form = ({
                 errorText={errors.cpassword}
                 fw="fa-lock"
                 handleType={handleType}
+                iconHide={inputStyle.iconHide}
             />
 
             <div className={inputStyle.genderDiv}>

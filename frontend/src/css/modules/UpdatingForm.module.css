@@ -1,0 +1,115 @@
+.infoDiv,
+.passwordDiv {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.passwordDiv {
+    flex-direction: column;
+    justify-content: center;
+}
+.bioBox,
+.addressBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1rem 2rem;
+}
+.bioBox {
+    width: 40%;
+}
+
+.passwordDiv .bioBox {
+    width: 60%;
+}
+
+.addressBox {
+    width: 100%;
+}
+
+.bioBox label,
+.addressBox label {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05rem;
+}
+
+.bioBox input,
+.addressBox input,
+.addressBox textarea {
+    padding: 1rem 0;
+    padding-left: 0.75rem;
+    width: 100%;
+    outline: none;
+}
+.editSubmit {
+    outline: none;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    color: #fff;
+    background-color: #28a745;
+    cursor: pointer;
+    letter-spacing: 0.1rem;
+}
+
+@media (max-width: 1270px) {
+    .infoDiv,
+    .passwordDiv {
+        width: 95%;
+    }
+}
+
+@media (max-width: 968px) {
+}
+
+@media (max-width: 878px) {
+    .bioBox {
+        max-width: 30rem;
+        min-width: 25rem;
+    }
+    .editSubmit {
+        padding: 0.6rem 1.2rem;
+        font-weight: 400;
+        font-size: 1.2rem;
+    }
+    .bioBox input,
+    .addressBox input,
+    .addressBox textarea {
+        padding: 0.75rem 1rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .bioBox {
+        max-width: 80%;
+        min-width: 0;
+        width: 80%;
+        padding: 1rem 0;
+        margin: auto;
+    }
+    .addressBox {
+        max-width: 80%;
+        padding: 1rem 0;
+        margin: auto;
+    }
+    .bioBox input,
+    .addressBox input,
+    .addressBox textarea {
+        width: 90%;
+    }
+}
+
+@media (max-width: 360px) {
+    .bioBox {
+        max-width: 100%;
+        width: 100%;
+    }
+    .addressBox {
+        max-width: 100%;
+    }
+}

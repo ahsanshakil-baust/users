@@ -6,7 +6,7 @@
     justify-content: center;
     align-items: center;
     padding: 0 0.5rem;
-    margin: 2.5rem 0;
+    margin: 3.7rem 0;
     position: relative;
 }
 
@@ -20,20 +20,10 @@
     border-bottom: 0.1rem solid lightgray;
 }
 
-.input span {
-    position: absolute;
-    background-color: #7de1e6;
-    width: 0 !important;
-    height: 0.2rem;
-    bottom: 0;
-    left: 0;
-    transition: 0.5s ease-in-out;
-}
-
 .input label {
     align-self: flex-start;
     position: absolute;
-    top: 0.5em;
+    top: 0.5rem;
     left: 2.2rem;
     color: lightslategray;
     font-size: 1.2rem;
@@ -41,18 +31,15 @@
     transition: 0.3s ease-in-out;
 }
 
-.input input:focus ~ label,
-.input input[value]:not([value=""]) ~ label {
-    top: -1.5rem;
-    font-size: 1rem;
-    color: #7de1e6;
-    font-weight: 500;
-    letter-spacing: 0.1rem;
-}
+/* FontAwesome */
 
-.input input:focus ~ span,
-.input input[value]:not([value=""]) ~ span {
-    width: 100% !important;
+.input i {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0;
+    font-size: 1.2rem;
+    color: rgb(60, 63, 65);
+    transition: 0.3s ease-in-out;
 }
 
 /* Radio Input */
@@ -86,8 +73,8 @@
     font-size: 1.1rem;
 }
 
-.check input[name="agreement"] {
-    accent-color: #106f74;
+.check input[name="agree"] {
+    accent-color: #14787e;
     margin-right: 1rem;
     cursor: pointer;
 }
@@ -105,12 +92,12 @@
 
 .error {
     color: rgba(201, 10, 10, 0.768);
-    font-size: 1.1rem;
+    font-size: 1rem;
     letter-spacing: 0.05rem;
     word-spacing: 0.1rem;
     position: absolute;
     right: 0;
-    bottom: -3rem;
+    bottom: -2.7rem;
 }
 
 .errorCommon {
@@ -120,24 +107,6 @@
     word-spacing: 0.1rem;
     position: absolute;
     right: 0;
-}
-
-/* FontAwesome */
-
-.input i {
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0;
-    font-size: 1.2rem;
-    color: rgb(60, 63, 65);
-    transition: 0.3s ease-in-out;
-}
-
-.input input:focus ~ i,
-.input input[value]:not([value=""]) ~ i {
-    left: -2rem;
-    font-size: 1.1rem;
-    color: #7de1e6;
 }
 
 /* password show */
@@ -166,4 +135,63 @@
 .letter span .Link {
     color: #7de1e6;
     margin-left: 0.6rem;
+}
+
+@media (min-width: 769px) {
+    .input input:focus ~ i,
+    .input input[value]:not([value=""]) ~ i {
+        left: -1.5rem;
+        font-size: 1.1rem;
+        /* color: #7de1e6; */
+    }
+    .input span {
+        position: absolute;
+        background-color: #7de1e6;
+        width: 0 !important;
+        height: 0.2rem;
+        bottom: 0;
+        left: 0;
+        transition: 0.5s ease-in-out;
+    }
+
+    .input input:focus ~ label,
+    .input input[value]:not([value=""]) ~ label {
+        top: -1.2rem;
+        font-size: 1rem;
+        color: #7de1e6;
+        font-weight: 500;
+        letter-spacing: 0.1rem;
+    }
+
+    .input input:focus ~ span,
+    .input input[value]:not([value=""]) ~ span {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .input input {
+        border: 0.1rem solid lightgray;
+        padding: 0.8rem 1rem;
+        border-radius: 0.3rem;
+    }
+    .input label {
+        top: -1.8rem;
+        left: 0.5rem;
+    }
+    .iconHide {
+        display: none;
+    }
+    .check {
+        margin: 0.2rem 0 1rem 0;
+    }
+    .input i {
+        bottom: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .input input {
+        padding: 0.5rem 0.8rem;
+    }
 }

@@ -8,6 +8,7 @@ const Input = ({
     errorClass,
     fw,
     handleType,
+    iconHide,
     ...rest
 }) => {
     if (name === "gender" || name === "agreement") {
@@ -21,7 +22,7 @@ const Input = ({
     return (
         <div className={classes}>
             <input autoComplete="off" {...rest} name={name} id={name} />
-            <i className={`fa-solid ${fw}`}></i>
+            <i className={`fa-solid ${iconHide} ${fw}`}></i>
             {name === "password" ||
             name === "cpassword" ||
             name === "vpassword" ? (

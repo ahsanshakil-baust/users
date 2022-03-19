@@ -1,25 +1,62 @@
 .formDiv {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem 0;
-  /* margin-top: 4rem; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10rem 0;
 }
 
 .layer {
-  min-width: 40rem;
-  box-shadow: -2px 5px 12px -10px #000000, 2px -3px 10px -10px #000000;
-  border-radius: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
+    min-width: 50rem;
+    box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.144);
+    -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.144);
+    -moz-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.144);
+    z-index: 100;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
 }
 
 .layer h1 {
-  font-size: 3rem;
-  letter-spacing: 0.1rem;
-  margin: 1rem 0;
+    font-size: 3rem;
+    letter-spacing: 0.1rem;
+    margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    .formDiv {
+        padding: 2rem 0;
+    }
+    .layer {
+        min-width: 60%;
+        box-shadow: none;
+    }
+    .layer h1 {
+        color: #7de1e6;
+        letter-spacing: 0.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .formDiv {
+        padding: 1rem 0;
+    }
+    .layer {
+        min-width: 80%;
+    }
+    .layer h1 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 376px) {
+    .formDiv {
+        padding: 2rem 0;
+    }
+    .layer {
+        min-width: 90%;
+    }
 }

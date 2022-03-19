@@ -10,3 +10,17 @@
     color: white;
     margin: 1.8rem 0;
 }
+
+@media (max-width: 576px) {
+    .submit {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 376px) {
+    .submit {
+        font-weight: 500;
+        margin: 1.5rem 0;
+        padding: 0.75rem 1.25rem;
+    }
+}

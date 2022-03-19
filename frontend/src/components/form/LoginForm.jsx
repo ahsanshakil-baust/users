@@ -32,6 +32,7 @@ const LoginForm = ({
                 errorClass={inputStyle.error}
                 errorText={errors.email}
                 fw="fa-envelope"
+                iconHide={inputStyle.iconHide}
             />
 
             <Input
@@ -45,6 +46,7 @@ const LoginForm = ({
                 errorText={errors.password}
                 fw="fa-lock"
                 handleType={handleType}
+                iconHide={inputStyle.iconHide}
             />
 
             <div className={inputStyle.letter}>

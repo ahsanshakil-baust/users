@@ -211,6 +211,10 @@ const updateUser = async (req, res) => {
                             useFindAndModify: false,
                         }
                     );
+
+                    // clear the cookie that was passed for geting user
+                    res.clearCookie(process.env.COOKIE_NAME);
+
                     // user response after update
                     res.status(200).json({
                         user: user,

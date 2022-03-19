@@ -1,4 +1,4 @@
-import Button from "../form/Button";
+import styles from "../../css/modules/ImageProfile.module.css";
 
 const ImageUploader = ({
     handleSubmit,
@@ -8,7 +8,7 @@ const ImageUploader = ({
     cancleHandle,
 }) => {
     return (
-        <div className="imageContainer">
+        <div className={styles.imageContainer}>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 {previewSource ? (
                     <img src={previewSource} alt="" />
@@ -16,24 +16,32 @@ const ImageUploader = ({
                     <img src={user.avatar} alt="" />
                 )}
 
-                <div className="uploads">
+                <div className={styles.uploads}>
                     <input
                         type="file"
                         name="avatar"
                         id="file"
                         onChange={fileHandler}
-                        className="inputfile"
+                        className={styles.inputfile}
                     />
                     {previewSource ? (
-                        <Button
-                            className="uploadBtn"
-                            onClick={cancleHandle}
-                            text="cancle"
-                        />
+                        <>
+                            <span
+                                className={styles.cancleBtn}
+                                onClick={cancleHandle}
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+
+                            <button type="submit" className={styles.uploadBtn}>
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                        </>
                     ) : (
-                        <label htmlFor="file">Upload Image</label>
+                        <label htmlFor="file">
+                            <i class="fa-solid fa-camera"></i>
+                        </label>
                     )}
-                    <Button className="uploadBtn" text="submit" />
                 </div>
             </form>
         </div>

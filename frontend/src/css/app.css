@@ -3,6 +3,12 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.hideHoriz {
+    overflow: hidden;
 }
 
 html {
@@ -11,8 +17,9 @@ html {
 }
 
 .main {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
+    /* height: 100vh; */
 }
 
 .downPage {
@@ -31,7 +38,7 @@ html {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 300;
 }
 
 .loading .text {
@@ -48,8 +55,8 @@ html {
     border-top: 1rem solid transparent;
     border-bottom: 1rem solid transparent;
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 10rem;
+    height: 10rem;
     animation: spin 2s linear infinite;
 }
 
@@ -62,203 +69,23 @@ html {
     }
 }
 
-/* // profile page */
+@media (max-width: 768px) {
+    html {
+        font-size: 57%;
+    }
+    .loading {
+        background-color: rgba(255, 251, 251, 0.829);
+    }
+    .loading .text {
+        color: rgb(82, 78, 78);
+        font-size: 1.2rem;
+    }
 
-.fromContainer {
-    width: 60%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.imageContainer {
-    width: 40%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.imageContainer img {
-    width: 15rem;
-    height: 15rem;
-    object-fit: cover;
-    border-radius: 0.3rem;
-}
-
-.imageContainer .uploads {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-}
-
-.imageContainer .inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-.inputfile + label {
-    font-size: 1rem;
-    font-weight: 500;
-    color: white;
-    background-color: black;
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 0.2rem;
-}
-
-.inputfile:focus + label,
-.inputfile + label:hover {
-    background-color: red;
-}
-
-.inputfile + label {
-    cursor: pointer;
-}
-.uploadBtn {
-    border: none;
-    outline: none;
-    padding: 0.55rem 1rem;
-    cursor: pointer;
-    background-color: green;
-    color: #f3f3f3;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-size: 1rem;
-    border-radius: 0.2rem;
-}
-
-.formBtn {
-    margin-top: 1rem;
-}
-
-.editBtn {
-    border: none;
-    outline: none;
-    padding: 0.3rem 0.7rem;
-    cursor: pointer;
-    background-color: green;
-    color: #f3f3f3;
-    text-transform: uppercase;
-    font-weight: 600;
-    font-size: 1rem;
-    border-radius: 0.2rem;
-    position: absolute;
-    top: 2rem;
-    right: 3rem;
-}
-
-/* Main div */
-
-.profileDiv {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-/* // bio */
-
-.bioBox {
-    display: flex;
-    align-items: center;
-    padding: 1rem 2rem;
-    padding-left: 0;
-}
-.title {
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.desc {
-    font-size: 1.4rem;
-    margin-left: 0.5rem;
-}
-
-/* // editableForm */
-
-.changePassDiv {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(63, 61, 61, 0.83);
-    left: 0;
-    top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.passChanger,
-.inputChanger {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    align-items: center;
-    margin: 1.5rem 0;
-    position: relative;
-}
-
-.passChanger label {
-    color: #f3f3f3;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-}
-.inputChanger label {
-    color: black;
-    font-size: 1.6rem;
-    margin-bottom: 1rem;
-}
-
-.passChanger i {
-    position: absolute;
-    right: 1rem;
-    bottom: 1rem;
-    font-size: 1.3rem;
-}
-
-.changePassDiv input {
-    width: 30rem;
-    padding: 0.75rem 0.5rem;
-    outline: none;
-    border: none;
-    border-radius: 0.3rem;
-}
-.changePassDiv .uploadBtn {
-    width: 10rem;
-    padding: 1rem;
-    font-size: 1.5rem;
-    border-radius: 0.5rem;
-}
-
-.closeFixedPosition {
-    position: absolute;
-    outline: none;
-    border: none;
-    color: rgb(235, 46, 46);
-    font-weight: 600;
-    font-size: 1.2rem;
-    background-color: white;
-    padding: 0.7rem;
-    border-radius: 1rem;
-    top: 3rem;
-    right: 3rem;
-    cursor: pointer;
-}
-
-.passError {
-    color: rgb(208, 28, 28);
-    font-size: 1.5rem;
-    background-color: #fff;
-    padding: 1rem 1.5rem;
+    .loading .circle {
+        border: 1rem solid rgb(82, 78, 78);
+        border-top: 1rem solid transparent;
+        border-bottom: 1rem solid transparent;
+        width: 7rem;
+        height: 7rem;
+    }
 }

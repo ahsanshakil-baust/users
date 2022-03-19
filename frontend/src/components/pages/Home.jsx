@@ -1,12 +1,13 @@
+/* eslint-disable no-lone-blocks */
 import React, { useReducer, useState } from "react";
 import Button from "../form/Button";
-import inputStyle from "../../css/modules/Input.module.css";
 import ImageUploader from "../home/ImageUploader";
-import EditAbleForm from "../home/EditAbleForm";
-import NonEditAbleForm from "../home/NonEditableForm";
+import UpdatingForm from "../home/UpdatingForm";
 import { passChangeValidate } from "../../validation/validation";
 import axios from "axios";
 import { useAuth } from "../../contextApi/context";
+import ChangePassword from "../home/ChangePassword";
+import styles from "../../css/modules/Profile.module.css";
 
 // type state for both Registration and Login
 const typeChecker = {
@@ -58,17 +59,27 @@ const Home = ({ user }) => {
     const { contextdispatch } = useAuth();
     // all states
     const [previewSource, setPreviewSource] = useState();
-    const [edit, setEdit] = useState(false);
+    const [edit, setEdit] = useState(true);
     const [changePass, setChangePass] = useState(false);
     const [errors, setErros] = useState({});
     const [users, setUser] = useState({
         username: user.username,
         mobile: user.mobile,
+        district: "",
+        post: "",
+        address: "",
+        about: "",
         vpassword: "",
         password: "",
         cpassword: "",
     });
     const [type, typeDispatch] = useReducer(typeReducer, typeChecker);
+
+    // cancle preview before upload
+    const cancleHandle = () => {
+        setPreviewSource(null);
+        window.location.reload(false);
+    };
 
     // file onChange handler
     const fileHandler = (e) => {
@@ -85,16 +96,12 @@ const Home = ({ user }) => {
         };
     };
 
-    // cancle preview before upload
-    const cancleHandle = () => {
-        setPreviewSource(null);
-    };
-
     // editing controller
     const handleEdit = () => {
         if (edit) {
             setEdit(false);
         } else {
+            window.location.reload(false);
             setEdit(true);
         }
     };
@@ -143,23 +150,20 @@ const Home = ({ user }) => {
     };
 
     // User updating response Function
-    const userUpdate = async (userObject) => {
+    const userUpdate = async (userObject, passTrue) => {
         try {
             setErros({});
-            const result = await axios.post(
-                "/user/update",
-                JSON.stringify(userObject),
-                {
-                    headers: {
-                        "Content-type": "application/json",
-                    },
-                }
-            );
+            await axios.post("/user/update", JSON.stringify(userObject), {
+                headers: {
+                    "Content-type": "application/json",
+                },
+            });
 
             alert("user info updated successfully!");
 
-            console.log(result);
-
+            if (passTrue) {
+                contextdispatch({ type: "user", result: {} });
+            }
             setPreviewSource(null);
         } catch (err) {
             // checking the server errors and other type of errors
@@ -182,29 +186,12 @@ const Home = ({ user }) => {
     // edit form handler function to submit updates
     const handleEditForm = (e) => {
         e.preventDefault();
-        const { username, mobile } = users;
+        const { username, mobile, district, post, address, about } = users;
 
-        let userObject = {};
+        const userObject = { username, mobile, district, post, address, about };
 
-        if (username) {
-            userObject = {
-                username,
-            };
-        }
-        if (mobile) {
-            userObject = {
-                mobile,
-            };
-        }
-        if (username && mobile) {
-            userObject = {
-                username,
-                mobile,
-            };
-        }
-
-        userUpdate(userObject);
-        window.location.reload();
+        userUpdate(userObject, false);
+        window.location.reload(false);
     };
 
     const handleSubmitPass = (e) => {
@@ -216,8 +203,7 @@ const Home = ({ user }) => {
         const { errors, isValid } = passChangeValidate(users);
 
         if (isValid) {
-            userUpdate(userObject);
-            contextdispatch({ type: "user", result: {} });
+            userUpdate(userObject, true);
         } else {
             setErros(errors);
         }
@@ -250,37 +236,62 @@ const Home = ({ user }) => {
     };
 
     return (
-        <div className="profileDiv">
-            <ImageUploader
-                handleSubmit={handleSubmit}
-                previewSource={previewSource}
-                user={user}
-                fileHandler={fileHandler}
-                cancleHandle={cancleHandle}
-            />
+        <div className={styles.profileDiv}>
+            <div className={styles.background}></div>
+            {!changePass && (
+                <div className={styles.imageDiv}>
+                    <div className={styles.imageLayer}>
+                        <ImageUploader
+                            handleSubmit={handleSubmit}
+                            previewSource={previewSource}
+                            user={user}
+                            fileHandler={fileHandler}
+                            cancleHandle={cancleHandle}
+                        />
 
-            <div className="fromContainer">
-                <Button
-                    className="editBtn"
-                    onClick={handleEdit}
-                    text={edit ? "cancle" : "edit"}
-                />
-                {edit ? (
-                    <EditAbleForm
-                        handleSubmitPass={handleSubmitPass}
-                        handleChange={handleChange}
-                        handleEditForm={handleEditForm}
-                        handleChangePass={handleChangePass}
-                        handleType={handleType}
-                        inputStyle={inputStyle}
-                        users={users}
-                        user={user}
-                        type={type}
-                        changePass={changePass}
-                        errors={errors}
+                        <div className={styles.username}>{user.username}</div>
+                        <div className={styles.email}>Email: {user.email}</div>
+                        <div className={styles.role}>
+                            user role: {user.role}
+                        </div>
+
+                        <Button
+                            className={styles.passBtn}
+                            onClick={handleChangePass}
+                            text="Change Your Password"
+                        />
+                    </div>
+                </div>
+            )}
+
+            <div className={styles.fromContainer}>
+                {!changePass ? (
+                    <Button
+                        className={styles.editBtn}
+                        onClick={handleEdit}
+                        text={!edit ? "Cancle" : "Edit Profile"}
                     />
                 ) : (
-                    <NonEditAbleForm user={user} />
+                    <Button
+                        className={styles.editBtn}
+                        onClick={handleChangePass}
+                        text="Cancle"
+                    />
+                )}
+                {changePass ? (
+                    <ChangePassword
+                        handleSubmitPass={handleSubmitPass}
+                        handleChange={handleChange}
+                        users={users}
+                    />
+                ) : (
+                    <UpdatingForm
+                        handleEditForm={handleEditForm}
+                        handleChange={handleChange}
+                        users={users}
+                        user={user}
+                        edit={edit}
+                    />
                 )}
             </div>
         </div>
