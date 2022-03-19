@@ -22,32 +22,17 @@ const typeReducer = (state, action) => {
         case "typeText":
             return {
                 ...state,
-                type: "text",
-            };
-        case "typePassword":
-            return {
-                ...state,
-                type: "password",
+                type: action.result,
             };
         case "cTypeText":
             return {
                 ...state,
-                ctype: "text",
-            };
-        case "cTypePassword":
-            return {
-                ...state,
-                ctype: "password",
+                ctype: action.result,
             };
         case "vTypeText":
             return {
                 ...state,
-                vtype: "text",
-            };
-        case "vTypePassword":
-            return {
-                ...state,
-                vtype: "password",
+                vtype: action.result,
             };
         default:
             return state;
@@ -171,6 +156,8 @@ const Home = ({ user }) => {
                 const error = err.response.data.errors;
                 const errorLength = Object.keys(error).length;
 
+                console.log(error);
+
                 for (let i = 0; i < errorLength; i++) {
                     // set the error for notifying
                     setErros({
@@ -206,32 +193,32 @@ const Home = ({ user }) => {
             userUpdate(userObject, true);
         } else {
             setErros(errors);
+            console.log(errors);
         }
     };
 
     // handle type for changing
     const handleType = (e) => {
         // target the input for checking which input type need to change
-        const selector = e.target.parentElement.parentElement.firstChild;
+        const selector = e.target.parentElement.children[1];
 
         // checking proccess and change type
-        if (type.type === "password" && selector.name === "password") {
-            typeDispatch({ type: "typeText" });
+        if (selector.name === "password") {
+            type.type === "password"
+                ? typeDispatch({ type: "typeText", result: "text" })
+                : typeDispatch({ type: "typeText", result: "password" });
         }
-        if (type.type === "text" && selector.name === "password") {
-            typeDispatch({ type: "typePassword" });
+
+        if (selector.name === "cpassword") {
+            type.ctype === "password"
+                ? typeDispatch({ type: "cTypeText", result: "text" })
+                : typeDispatch({ type: "cTypeText", result: "password" });
         }
-        if (type.ctype === "password" && selector.name === "cpassword") {
-            typeDispatch({ type: "cTypeText" });
-        }
-        if (type.ctype === "text" && selector.name === "cpassword") {
-            typeDispatch({ type: "cTypePassword" });
-        }
-        if (type.vtype === "password" && selector.name === "vpassword") {
-            typeDispatch({ type: "vTypeText" });
-        }
-        if (type.vtype === "text" && selector.name === "vpassword") {
-            typeDispatch({ type: "vTypePassword" });
+
+        if (selector.name === "vpassword") {
+            type.vtype === "password"
+                ? typeDispatch({ type: "vTypeText", result: "text" })
+                : typeDispatch({ type: "vTypeText", result: "password" });
         }
     };
 
@@ -283,6 +270,9 @@ const Home = ({ user }) => {
                         handleSubmitPass={handleSubmitPass}
                         handleChange={handleChange}
                         users={users}
+                        errorText={errors}
+                        handleType={handleType}
+                        type={type}
                     />
                 ) : (
                     <UpdatingForm

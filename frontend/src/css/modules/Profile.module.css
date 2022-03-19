@@ -3,7 +3,7 @@
     height: 100%;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: center;
     padding: 4rem;
     margin-top: 2rem;
 }
@@ -23,6 +23,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-right: 5rem;
     position: relative;
 }
 
@@ -96,6 +97,7 @@
         -5px -5px 5px -5px rgba(145, 128, 128, 0.67);
     border-radius: 0.5rem;
     padding: 3rem 2rem 3rem 1.25rem;
+    /* margin: auto; */
 }
 .editBtn {
     border: none;
@@ -129,6 +131,7 @@
     .imageDiv {
         width: 50%;
         margin-bottom: 2rem;
+        margin-right: 0;
     }
     .imageLayer {
         border-radius: 5rem;
@@ -195,7 +198,6 @@
 
     .editBtn {
         padding: 0.5rem 1rem;
-        font-size: 1rem;
         margin-top: 1rem;
         margin-bottom: 0.5rem;
     }

@@ -31,7 +31,7 @@ html {
 }
 
 .loading {
-    position: absolute;
+    position: fixed;
     background-color: rgba(0, 0, 0, 0.672);
     width: 100vw;
     height: 100vh;

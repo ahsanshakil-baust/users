@@ -19,6 +19,10 @@ const {
     loginValidator,
     loginValidatorHandler,
 } = require("../middlewares/user/validateLogin");
+const {
+    passValidator,
+    passValidatorHandler,
+} = require("../middlewares/user/validatePass");
 const { checkLogin } = require("../middlewares/common/checkLogin");
 // const avatarUpload = require("../middlewares/user/avatarUpload");
 
@@ -35,7 +39,13 @@ router.get("/", checkLogin, loggedInUser);
 router.delete("/logout", logout);
 
 // update user profile
-router.post("/update", checkLogin, updateUser);
+router.post(
+    "/update",
+    passValidator,
+    passValidatorHandler,
+    checkLogin,
+    updateUser
+);
 
 // verify email
 router.get("/verify-email/:token", verifyEmail);

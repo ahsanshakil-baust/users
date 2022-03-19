@@ -49,10 +49,10 @@
     color: rgb(45, 47, 49);
 } */
 
-.toggleNav .lists li a.active,
+/* .toggleNav .lists li a.active,
 .lists li a.active {
     color: #fe4066;
-}
+} */
 
 .lists .activeSignup .active {
     background-color: #fe4066;

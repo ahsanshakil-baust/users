@@ -191,7 +191,6 @@ const updateUser = async (req, res) => {
                 vpassword,
                 userInfo.password
             );
-            console.log(isverified);
             // check is password was matched
             if (isverified) {
                 // changing password retype matching
@@ -319,12 +318,9 @@ const updateUser = async (req, res) => {
 
 // verify email
 const verifyEmail = async (req, res) => {
-    console.log("hi");
-
     try {
         // get the token by query
         const token = req.params.token;
-        console.log(token);
         // find the user by given token to the user
         const user = await User.findOne({ token });
         // check is the user exists

@@ -91,7 +91,7 @@ const Admin = () => {
             ? dispatch({ type: "roleEdit", result: false })
             : dispatch({ type: "roleEdit", result: true });
 
-        dispatch({ type: "roleName", result: e.target.name });
+        dispatch({ type: "roleName", result: e.target.getAttribute("name") });
         dispatch({ type: "roleId", result: e.target.id });
     };
 
@@ -111,128 +111,156 @@ const Admin = () => {
 
     return (
         <>
-            <table className={style.userLists}>
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {people.map((u, index) => {
-                        return (
-                            <tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{u.username}</td>
-                                <td>{u.email}</td>
-                                <td>
-                                    {roleEdit && roleId === u._id ? (
-                                        <select
-                                            onChange={onRoleChange}
-                                            disabled={
-                                                ((u.role === "superadmin" ||
-                                                    u.role === "admin") &&
-                                                    user.role === "admin") ||
-                                                u.email === user.email
-                                            }
-                                            value={roleName}
-                                        >
-                                            <option
-                                                value="member"
-                                                selected={u.role === "member"}
+            <div className={style.adminDiv}>
+                <div className={style.background}></div>
+                <h1 className={style.heading}>User Lists</h1>
+                <table className={style.userLists}>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {people.map((u, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td>{index + 1}</td>
+                                    <td>{u.username}</td>
+                                    <td>{u.email}</td>
+                                    <td>
+                                        {roleEdit && roleId === u._id ? (
+                                            <select
+                                                onChange={onRoleChange}
+                                                disabled={
+                                                    ((u.role === "superadmin" ||
+                                                        u.role === "admin") &&
+                                                        user.role ===
+                                                            "admin") ||
+                                                    u.email === user.email
+                                                }
+                                                value={roleName}
                                             >
-                                                Member
-                                            </option>
-                                            <option
-                                                value="editor"
-                                                selected={u.role === "editor"}
+                                                <option
+                                                    value="member"
+                                                    selected={
+                                                        u.role === "member"
+                                                    }
+                                                >
+                                                    Member
+                                                </option>
+                                                <option
+                                                    value="editor"
+                                                    selected={
+                                                        u.role === "editor"
+                                                    }
+                                                >
+                                                    Editor
+                                                </option>
+                                                <option
+                                                    value="admin"
+                                                    selected={
+                                                        u.role === "admin"
+                                                    }
+                                                >
+                                                    Admin
+                                                </option>
+                                            </select>
+                                        ) : (
+                                            u.role
+                                        )}
+                                    </td>
+                                    <td className={style.buttons}>
+                                        {roleEdit &&
+                                        roleId === u._id &&
+                                        u.role !== roleName ? (
+                                            <span
+                                                id={u._id}
+                                                name={u.role}
+                                                onClick={roleSubmit}
+                                                className={
+                                                    ((u.role === "superadmin" ||
+                                                        u.role === "admin") &&
+                                                        user.role ===
+                                                            "admin") ||
+                                                    u.email === user.email
+                                                        ? style.disable
+                                                        : style.edit
+                                                }
                                             >
-                                                Editor
-                                            </option>
-                                            <option
-                                                value="admin"
-                                                selected={u.role === "admin"}
+                                                <i
+                                                    className={`${style.save} fa-solid fa-check`}
+                                                ></i>
+                                            </span>
+                                        ) : (
+                                            <span
+                                                id={u._id}
+                                                name={u.role}
+                                                onClick={handleEdit}
+                                                className={
+                                                    ((u.role === "superadmin" ||
+                                                        u.role === "admin") &&
+                                                        user.role ===
+                                                            "admin") ||
+                                                    u.email === user.email
+                                                        ? style.disable
+                                                        : style.edit
+                                                }
                                             >
-                                                Admin
-                                            </option>
-                                        </select>
-                                    ) : (
-                                        u.role
-                                    )}
-                                </td>
-                                <td>
-                                    {roleEdit &&
-                                    roleId === u._id &&
-                                    u.role !== roleName ? (
-                                        <button
-                                            id={u._id}
-                                            name={u.role}
-                                            onClick={roleSubmit}
-                                            className={style.edit}
-                                            disabled={
-                                                ((u.role === "superadmin" ||
-                                                    u.role === "admin") &&
-                                                    user.role === "admin") ||
-                                                u.email === user.email
-                                            }
-                                        >
-                                            save
-                                        </button>
-                                    ) : (
-                                        <button
-                                            id={u._id}
-                                            name={u.role}
-                                            onClick={handleEdit}
-                                            className={style.edit}
-                                            disabled={
-                                                ((u.role === "superadmin" ||
-                                                    u.role === "admin") &&
-                                                    user.role === "admin") ||
-                                                u.email === user.email
-                                            }
-                                        >
-                                            {roleEdit && roleId === u._id
-                                                ? "save"
-                                                : "edit"}
-                                        </button>
-                                    )}
-                                    {roleEdit && roleId === u._id ? (
-                                        <button
-                                            onClick={handleCancle}
-                                            className={style.delete}
-                                            disabled={
-                                                ((u.role === "superadmin" ||
-                                                    u.role === "admin") &&
-                                                    user.role === "admin") ||
-                                                u.email === user.email
-                                            }
-                                        >
-                                            cancle
-                                        </button>
-                                    ) : (
-                                        <button
-                                            id={u._id}
-                                            className={style.delete}
-                                            onClick={handleDelete}
-                                            disabled={
-                                                ((u.role === "superadmin" ||
-                                                    u.role === "admin") &&
-                                                    user.role === "admin") ||
-                                                u.email === user.email
-                                            }
-                                        >
-                                            delete
-                                        </button>
-                                    )}
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+                                                {roleEdit &&
+                                                roleId === u._id ? (
+                                                    <i
+                                                        className={`${style.save} fa-solid fa-check`}
+                                                    ></i>
+                                                ) : (
+                                                    <i className="fa-solid fa-pen-to-square"></i>
+                                                )}
+                                            </span>
+                                        )}
+                                        {roleEdit && roleId === u._id ? (
+                                            <span
+                                                onClick={handleCancle}
+                                                className={
+                                                    ((u.role === "superadmin" ||
+                                                        u.role === "admin") &&
+                                                        user.role ===
+                                                            "admin") ||
+                                                    u.email === user.email
+                                                        ? style.disabledlt
+                                                        : style.delete
+                                                }
+                                            >
+                                                <i
+                                                    className={`${style.close} fa-solid fa-xmark`}
+                                                ></i>
+                                            </span>
+                                        ) : (
+                                            <span
+                                                id={u._id}
+                                                onClick={handleDelete}
+                                                className={
+                                                    ((u.role === "superadmin" ||
+                                                        u.role === "admin") &&
+                                                        user.role ===
+                                                            "admin") ||
+                                                    u.email === user.email
+                                                        ? style.disabledlt
+                                                        : style.delete
+                                                }
+                                            >
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </span>
+                                        )}
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
         </>
     );
 };

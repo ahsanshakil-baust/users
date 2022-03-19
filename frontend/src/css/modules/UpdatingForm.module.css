@@ -24,6 +24,20 @@
 
 .passwordDiv .bioBox {
     width: 60%;
+    position: relative;
+}
+
+.passwordDiv .bioBox i {
+    position: absolute;
+    font-size: 1.2rem;
+    right: 2rem;
+    top: 4.5rem;
+    cursor: pointer;
+}
+
+.passwordDiv .errorClass {
+    color: rgb(226, 36, 36);
+    font-size: 1rem;
 }
 
 .addressBox {
